@@ -65,3 +65,25 @@ h1, h2, h3, h4, h5, h6 {
   height: auto;
   display: inline-block;
 }
+
+/* Turuncu buton rengi */
+.btn-primary {
+  background-color: #e67300 !important;
+  border-color:     #e67300 !important;
+  color:            #ffffff !important; /* yazı rengini beyaz olsun */
+}
+
+/* Hover durumunda biraz koyulaştırmak istersen */
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #e67300 !important; /* biraz koyu turuncu */
+  border-color:     #e67300 !important;
+  color:            #ffffff !important;
+}
+
+/* Tıklanınca/active durumunda */
+.btn-primary:active,
+.btn-primary.active {
+  background-color: #cc6600 !important;
+  border-color:     #cc6600 !important;
+}
