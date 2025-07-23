@@ -59,3 +59,9 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: none           !important;
 }
 
+/* index.html’e eklediğimiz .reservation-logo için */
+.reservation-logo {
+  max-width: 150px;    /* genişlik ihtiyaca göre ayarla */
+  height: auto;
+  display: inline-block;
+}
