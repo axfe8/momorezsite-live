@@ -1,76 +1,61 @@
-/* Tüm sayfa arka planı için */
+/* 1) Tüm sayfa arka planı */
 body {
-  background-color: rgb(250, 242, 210);
-    min-height: 100vh;
-
+  font-family: larken, sans-serif; /* Larken fontunu kullan */
+  font-style:normal;
+  font-weight: 100;
+  background-color: rgb(250, 242, 210);  /* #fcf4de tonunda */
+  min-height: 100vh;
+  margin: 0;
 }
 
+/* 2) Başlık renkleri */
 h1, h2, h3, h4, h5, h6 {
-  color: #2c3e50;
+  color: #131313;
   font-weight: 600;
 }
 
-/* Kart gölgelendirmesi ve kenar yuvarlama */
-.card {
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-/* Buton hover efekti */
-.btn-primary {
-  transition: background-color 0.2s ease;
-}
-.btn-primary:hover {
-  background-color: #0056b3;
-}
-
-/* Mesaj kutusu */
-#message .alert {
-  border-radius: 8px;
-}
-/* Form arka planını şeffaf yapmak için */
+/* 3) Form wrapper’ını tamamen şeffaf ve çerçevesiz yap */
+#reservationForm,
 .container form {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0;               /* isteğe bağlı: formun kenarlara yapışmasını engellemek için */
+}
+
+/* 4) Form etiketleri */
+.form-label {
+  color: rgb(0, 0, 0);
+}
+
+/* 5) Input ve Select alanları */
+.form-control,
+.form-select {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.3);  /* koyu sayfa üzerinde görünür olsun */
+  color: #131313;                            /* koyu metin */
+  box-shadow: none;
+}
+
+/* 6) Focus olduğunda alt çizgi kalınlaşsın */
+.form-control:focus,
+.form-select:focus {
+  outline: none;
+  border-bottom: 2px solid #131313;
+}
+/* 1) Bootstrap’in beyaz arka planını override et */
+.bg-white {
   background-color: transparent !important;
 }
-.card {
-  background-color: transparent !important;
-}
-/* 1) Form wrapper’ı tamamen şeffaf yap */
-#reservationForm {
+
+/* 2) Kart ve form wrapper’ını tamamen şeffaf yap */
+.card,
+#reservationForm,
+#reservationForm .card-body {
   background-color: transparent !important;
   border: none               !important;
   box-shadow: none           !important;
-  padding: 0                 !important; /* Gerekiyorsa iç boşluklar buradan ayarlanır */
-}
-/* Form etiketlerinin rengi ve gölgesi */
-.form-label {
-  color: #ffffff !important;       /* Beyaza yakın kontrastlı bir renk */
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-}
-/* Input ve Select alanlarının çerçevesi ve arka planı */
-.form-control,
-.form-select {
-  background-color: transparent !important;      /* Tamamen şeffaf iç */
-  border: none         !important;               /* Tam kenar çizgilerini kaldır */
-  border-bottom: 1px solid rgba(255,255,255,0.7) !important;
-  color: #cddfd7       !important;               /* Girilen metni de beyaz yap */
-  box-shadow: none      !important;              /* Varsayılan focus gölgesini kaldır */
 }
 
-/* Focus olduğunda alt çizgi biraz kalınlaşsın */
-.form-control:focus,
-.form-select:focus {
-  outline: none !important;
-  border-bottom: 2px solid #ffffff !important;
-}
-/* Placeholder’ların okunabilir rengi */
-.form-control::placeholder,
-.form-select::placeholder {
-  color: rgba(255,255,255,0.8) !important;
-  opacity: 1; /* bazı tarayıcılarda opacity’yi sıfırlamak için */
-}
-
-/* Vendor-prefix’li tüm versiyonlar için (isteğe bağlı) */
-::-webkit-input-placeholder { color: rgba(255,255,255,0.8) !important; opacity:1; }
-:-ms-input-placeholder         { color: rgba(255,255,255,0.8) !important; opacity:1; }
-::-ms-input-placeholder        { color: rgba(255,255,255,0.8) !important; opacity:1; }
