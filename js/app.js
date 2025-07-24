@@ -57,8 +57,8 @@ updateSocialPrefix();
 
       [['Ad Soyad','text','fullName'],
        ['E-posta','email','email'],
-       ['Telefon','tel','phoneNumber'],
-       ['Sosyal Medya','url','socialMedia']]
+       ['Telefon','tel','phoneNumber']
+    ]
         .forEach(([labelText,type,name]) => {
           const wrapper = document.createElement('div');
           wrapper.className = 'mb-2';
@@ -76,6 +76,51 @@ updateSocialPrefix();
           wrapper.append(lbl, inp);
           fs.appendChild(wrapper);
         });
+        // 2) Sosyal Medya Platformu dropdown
+      const platformWrapper = document.createElement('div');
+      platformWrapper.className = 'mb-2';
+      platformWrapper.innerHTML = `
+        <label class="form-label small">Sosyal Medya Platformu</label>
+        <select class="form-select form-select-sm rounded-pill guest-socialPlatform"
+                name="guests[${i-1}].socialPlatform">
+          <option value="instagram">Instagram</option>
+          <option value="linkedin">LinkedIn</option>
+          <option value="facebook">Facebook</option>
+        </select>
+      `;
+      fs.appendChild(platformWrapper);
+
+      // 3) Sosyal Medya URL girişi
+      const mediaWrapper = document.createElement('div');
+      mediaWrapper.className = 'mb-2';
+      mediaWrapper.innerHTML = `
+        <label class="form-label small">Profil URL</label>
+        <input type="url"
+               class="form-control form-control-sm rounded-pill guest-socialMedia"
+               name="guests[${i-1}].socialMedia"
+               placeholder="${prefixes.instagram}" />
+      `;
+      fs.appendChild(mediaWrapper);
+
+      // 4) Prefix otomatik güncelleme
+      const sel = platformWrapper.querySelector('.guest-socialPlatform');
+      const inp = mediaWrapper.querySelector('.guest-socialMedia');
+      // Başlangıç placeholder
+      inp.placeholder = prefixes[ sel.value ];
+      // Değişim ve odaklanma dinleyicileri
+      sel.addEventListener('change', () => {
+        const url       = inp.value || '';
+        const lastSlash = url.lastIndexOf('/');
+        const user      = lastSlash >= 0 ? url.slice(lastSlash + 1) : '';
+        inp.value       = prefixes[ sel.value ] + user;
+        // imleci sona taşı
+        setTimeout(() => {
+          inp.selectionStart = inp.selectionEnd = inp.value.length;
+        });
+      });
+      inp.addEventListener('focus', () => {
+        sel.dispatchEvent(new Event('change'));
+      });
 
       col.appendChild(fs);
       guestContainer.appendChild(col);
