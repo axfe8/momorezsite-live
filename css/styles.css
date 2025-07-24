@@ -87,3 +87,8 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #cc6600 !important;
   border-color:     #cc6600 !important;
 }
+/* styles.css’in en altına ekle */
+.form-check-input:checked {
+  background-color: #ff6600 !important;
+  border-color:     #ff6600 !important;
+}
