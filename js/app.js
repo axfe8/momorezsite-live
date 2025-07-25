@@ -1,6 +1,20 @@
 // js/app.js
 
 document.addEventListener('DOMContentLoaded', () => {
+  // ===== Telefon alanını intl-tel-input ile zenginleştir =====
+const phoneInput = document.getElementById('phoneNumber');
+const iti = window.intlTelInput(phoneInput, {
+  initialCountry: "auto",
+  geoIpLookup: callback => {
+    fetch('https://ipapi.co/json')
+      .then(r => r.json())
+      .then(data => callback(data.country_code))
+      .catch(() => callback('tr'));
+  },
+  utilsScript:
+    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
+});
+// ==========================================================
   const form             = document.getElementById('reservationForm');
   const msgEl            = document.getElementById('message');
   const submitBtn        = form.querySelector('button[type="submit"]');
@@ -132,7 +146,17 @@ updateSocialPrefix();
 
   form.addEventListener('submit', async e => {
     e.preventDefault();
+     
+    // ➍ Butonu devre dışı bırak ve telefon doğrulaması yap
+    submitBtn.disabled = true;
+    if (!iti.isValidNumber()) {
+      msgEl.innerHTML = '<div class="alert alert-warning">Geçerli bir telefon numarası girin.</div>';
+      submitBtn.disabled = false;
+      return;
+    }
 
+    // ➎ Tam formatlı numarayı al
+    const fullPhone = iti.getNumber();  // örn "+905321234567"
     // Butonu kilitle: tekrar tıklamayı engelle
     submitBtn.disabled = true;
     const fd          = new FormData(form);
