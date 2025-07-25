@@ -6,6 +6,7 @@ const phoneInput = document.getElementById('phoneNumber');
 const iti = window.intlTelInput(phoneInput, {
   initialCountry: "auto",
   separateDialCode: true,
+  autoHideDialCode: false,
   dropdownContainer: document.body,
   geoIpLookup: callback => {
     fetch('https://ipapi.co/json')
