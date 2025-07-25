@@ -3,6 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const form             = document.getElementById('reservationForm');
   const msgEl            = document.getElementById('message');
+  const submitBtn        = form.querySelector('button[type="submit"]');
   const personCountInput = document.getElementById('personCount');
   const guestContainer   = document.getElementById('guestContainer');
   // --- SOSYAL MEDYA PREFIX GÜNCELLEME ---
@@ -132,6 +133,8 @@ updateSocialPrefix();
   form.addEventListener('submit', async e => {
     e.preventDefault();
 
+    // Butonu kilitle: tekrar tıklamayı engelle
+    submitBtn.disabled = true;
     const fd          = new FormData(form);
     const fullName    = fd.get('fullName')?.trim();
     const phoneNumber = fd.get('phoneNumber')?.trim();
@@ -196,5 +199,8 @@ console.groupEnd();
     } catch (err) {
       msgEl.innerHTML = `<div class="alert alert-danger">Hata: ${err.message}</div>`;
     }
-  });
+finally {
+    // İşlem tamamlandığında butonu tekrar aktif et
+    submitBtn.disabled = false;
+  }  });
 });
