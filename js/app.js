@@ -195,7 +195,7 @@ console.groupEnd();
     // Doğrudan DTO olarak gövdeye yazıyoruz
     const dto = {
       fullName,
-      phoneNumber,
+      phoneNumber: fullPhone,
       email,
       socialMedia,
       requestedDate,
