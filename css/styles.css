@@ -108,3 +108,17 @@ h1, h2, h3, h4, h5, h6 {
 .text-center.mb-4 {
   margin-bottom: 0rem !important; /* Varsayılan 1.5rem iken 0.5rem yaptık */
 }
+
+/* intl-tel-input bayrak container’ın overflow’dan etkilenmemesi için */
+.iti {
+  position: relative;  /* zaten plugin ekliyor ama override edilmiş olabilir */
+}
+.iti__flag-container {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;               /* input padding’ine göre ayarlayın */
+  transform: translateY(-50%);
+}
+input[type="tel"] {
+  padding-left: 5rem !important; /* bayrak + kod sığıyor mu kontrol edin */
+}
