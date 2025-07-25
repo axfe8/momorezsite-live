@@ -129,6 +129,7 @@ h1, h2, h3, h4, h5, h6 {
   /* ★ Aşağıdaki satırları ekleyin ★ */
   pointer-events: auto !important;
   cursor: pointer;
+  z-index: 1000;
 }
 
 /* dropdown listesinin her zaman üstte olmasını sağla */
