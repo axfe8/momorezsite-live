@@ -1,7 +1,15 @@
+@font-face {
+  font-family: 'ESBuildTRIAL';
+  src: url('fonts/ESBuildTRIAL-Bold.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 /* 1) Tüm sayfa arka planı */
 body {
-  font-family: larken, sans-serif; /* Larken fontunu kullan */
-  font-style:normal;
+  font-family: ESBuildTRIAL, sans-serif; 
+  font-style:bold;
   font-weight: 100;
   background-color: rgb(250, 242, 210);  /* #fcf4de tonunda */
   min-height: 100vh;
@@ -12,6 +20,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   color: #131313;
   font-weight: 600;
+  margin-top: 40px;
 }
 
 /* 3) Form wrapper’ını tamamen şeffaf ve çerçevesiz yap */
@@ -57,6 +66,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: transparent !important;
   border: none               !important;
   box-shadow: none           !important;
+  padding-top: 0rem !important;
 }
 
 /* index.html’e eklediğimiz .reservation-logo için */
@@ -64,6 +74,7 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 150px;    /* genişlik ihtiyaca göre ayarla */
   height: auto;
   display: inline-block;
+  margin-top: 30px;
 }
 
 /* Turuncu buton rengi */
@@ -91,4 +102,9 @@ h1, h2, h3, h4, h5, h6 {
 .form-check-input:checked {
   background-color: #ff6600 !important;
   border-color:     #ff6600 !important;
+}
+
+/* Logo altındaki boşluğu sıkılaştır */
+.text-center.mb-4 {
+  margin-bottom: 0rem !important; /* Varsayılan 1.5rem iken 0.5rem yaptık */
 }
