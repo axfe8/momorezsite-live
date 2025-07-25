@@ -113,12 +113,29 @@ h1, h2, h3, h4, h5, h6 {
 .iti {
   position: relative;  /* zaten plugin ekliyor ama override edilmiş olabilir */
 }
+/* Mevcut flag-container pozisyonu korunacak */
 .iti__flag-container {
   position: absolute;
   top: 50%;
   left: 0.75rem;               /* input padding’ine göre ayarlayın */
   transform: translateY(-50%);
+  
+  /* Mevcut flag-container pozisyonu korunacak */
+.iti__flag-container {
+  position: absolute;
+  top: 50%;
+  left: 0.75rem;               /* input padding’ine göre ayarlayın */
+  transform: translateY(-50%);
+  /* ★ Aşağıdaki satırları ekleyin ★ */
+  pointer-events: auto !important;
+  cursor: pointer;
 }
+
+/* dropdown listesinin her zaman üstte olmasını sağla */
+.iti__country-list {
+  z-index: 2000 !important;
+}
+
 input[type="tel"] {
   padding-left: 5rem !important; /* bayrak + kod sığıyor mu kontrol edin */
 }
