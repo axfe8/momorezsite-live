@@ -115,24 +115,24 @@ h1, h2, h3, h4, h5, h6 {
 .iti {
   position: relative;  /* zaten plugin ekliyor ama override edilmiş olabilir */
 }
-/* Bayrak ikonunu input’un soluna hizala ve tıklanabilir kıl */
+/* Bayrak ikonunu input’un soluna hizala ve tıklanabilir kıl 
 .iti__flag-container {
   position: absolute !important;
   transform: translateY(-50%);
   pointer-events: auto !important;
-  cursor: pointer !important; /* tıklanabilir olsun */
+  cursor: pointer !important; /* tıklanabilir olsun 
   z-index: 2000 !important;
-}
+}*/
 
-/* Dropdown listesinin her zaman en üstte olmasını sağla */
+/* Dropdown listesinin her zaman en üstte olmasını sağla 
 .iti__country-list {
   position: absolute !important;
   z-index: 9999 !important;
   overflow: auto !important; /* taşan listeyi kaydırılabilir yap */
-  max-height: 200px !important; /* maksimum yükseklik */
-  background: #ffffff;
+  /*max-height: 200px !important; /* maksimum yükseklik */
+  /*background: #ffffff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
+}*/
 
 /* 3) Mobilde liste maddelerinin opaklığını düzelt */
 .iti__country {
