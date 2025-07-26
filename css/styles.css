@@ -129,9 +129,17 @@ h1, h2, h3, h4, h5, h6 {
 /* Dropdown listesinin her zaman en üstte olmasını sağla */
 .iti__country-list {
   position: absolute !important;
+  z-index: 3000 !important;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   top: 100% !important;      /* input’un hemen altından başlasın */
   left: 0 !important;        /* input ile hizalı */
-  z-index: 3000 !important;
+}
+
+/* 3) Mobilde liste maddelerinin opaklığını düzelt */
+.iti__country {
+  opacity: 1 !important;
+  color: #000000 !important;
 }
 
 /* Telefon input’unun içine bayrak + kod sığsın diye padding */
