@@ -31,6 +31,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: none !important;
   padding: 0 !important;
   margin: 0;               /* isteğe bağlı: formun kenarlara yapışmasını engellemek için */
+  overflow: visible !important;
 }
 
 /* 4) Form etiketleri */
@@ -121,13 +122,15 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(-50%);
   pointer-events: auto !important;
   cursor: pointer;
-  z-index: 1000 !important;
+  z-index: 2000 !important;
 }
 
 /* Dropdown listesinin her zaman en üstte olmasını sağla */
 .iti__country-list {
   position: absolute !important;
-  z-index: 2000 !important;
+  top: 100% !important;      /* input’un hemen altından başlasın */
+  left: 0 !important;        /* input ile hizalı */
+  z-index: 3000 !important;
 }
 
 /* Telefon input’unun içine bayrak + kod sığsın diye padding */
