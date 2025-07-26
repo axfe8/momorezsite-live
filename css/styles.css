@@ -111,41 +111,8 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0rem !important; /* Varsayılan 1.5rem iken 0.5rem yaptık */
 }
 
-/* intl-tel-input bayrak container’ın overflow’dan etkilenmemesi için */
-.iti {
-  position: relative;  /* zaten plugin ekliyor ama override edilmiş olabilir */
-}
-/* Bayrak ikonunu input’un soluna hizala ve tıklanabilir kıl 
-.iti__flag-container {
-  position: absolute !important;
-  transform: translateY(-50%);
-  pointer-events: auto !important;
-  cursor: pointer !important; /* tıklanabilir olsun 
-  z-index: 2000 !important;
-}*/
-
-/* Dropdown listesinin her zaman en üstte olmasını sağla 
-.iti__country-list {
-  position: absolute !important;
-  z-index: 9999 !important;
-  overflow: auto !important; /* taşan listeyi kaydırılabilir yap */
-  /*max-height: 200px !important; /* maksimum yükseklik */
-  /*background: #ffffff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}*/
-
-/* 3) Mobilde liste maddelerinin opaklığını düzelt */
-.iti__country {
+.iti__country-list, .iti__country-list li {
+  display: block !important;
+  visibility: visible !important;
   opacity: 1 !important;
-  color: #000000 !important;
-}
-
-/* Telefon input’unun içine bayrak + kod sığsın diye padding */
-input[type="tel"] {
-  padding-left: 5rem !important;
-}
-
-.iti__dropdown {
-  overflow: visible !important;
-  z-index: 9999 !important;
 }
