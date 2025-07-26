@@ -117,9 +117,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* Bayrak ikonunu input’un soluna hizala ve tıklanabilir kıl */
 .iti__flag-container {
-  position: absolute;
-  top: 50%;
-  left: 0.75rem;
+  position: absolute !important;
   transform: translateY(-50%);
   pointer-events: auto !important;
   cursor: pointer !important; /* tıklanabilir olsun */
