@@ -113,49 +113,24 @@ h1, h2, h3, h4, h5, h6 {
 .iti {
   position: relative;  /* zaten plugin ekliyor ama override edilmiş olabilir */
 }
-/* Mevcut flag-container pozisyonu korunacak */
+/* Bayrak ikonunu input’un soluna hizala ve tıklanabilir kıl */
 .iti__flag-container {
   position: absolute;
   top: 50%;
-  left: 0.75rem;               /* input padding’ine göre ayarlayın */
+  left: 0.75rem;
   transform: translateY(-50%);
-  
-  /* Mevcut flag-container pozisyonu korunacak */
-.iti__flag-container {
-  position: absolute;
-  top: 50%;
-  left: 0.75rem;               /* input padding’ine göre ayarlayın */
-  transform: translateY(-50%);
-  /* ★ Aşağıdaki satırları ekleyin ★ */
-  pointer-events: auto !important;
-  cursor: pointer;
-  z-index: 1000;
-}
-
-/* dropdown listesinin her zaman üstte olmasını sağla */
-.iti__country-list {
-  z-index: 2000 !important;
-}
-
-input[type="tel"] {
-  padding-left: 5rem !important; /* bayrak + kod sığıyor mu kontrol edin */
-}
-
-/* Bayrak konteynerini tıklanabilir yap */
-.iti__flag-container {
   pointer-events: auto !important;
   cursor: pointer;
   z-index: 1000 !important;
 }
 
-/* Dropdown listesini her zaman en üstte göster */
+/* Dropdown listesinin her zaman en üstte olmasını sağla */
 .iti__country-list {
   position: absolute !important;
   z-index: 2000 !important;
 }
 
-/* Eğer placeholder’ınız varsa kaldırın,
-   plugin kendi örnek numarasını kullanacak */
+/* Telefon input’unun içine bayrak + kod sığsın diye padding */
 input[type="tel"] {
-  /* placeholder: "+90 5xx xxx xx xx"; */  /* çıkarın */
+  padding-left: 5rem !important;
 }
