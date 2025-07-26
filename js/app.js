@@ -1,21 +1,19 @@
 // js/app.js
 
 document.addEventListener('DOMContentLoaded', () => {
-const phoneInput = document.getElementById('phoneNumber');
+  const phoneInput = document.getElementById('phoneNumber');
   const iti = window.intlTelInput(phoneInput, {
-    initialCountry: "auto",           // otomatik seçim bırakıldı
-    preferredCountries: ["tr","us"],  // en üste Türkiye’yi koyun
-    separateDialCode: true,           // kodu input’tan ayırır
-    autoHideDialCode: false,          // hep kodu göster
-    dropdownContainer: document.body, // dropdown’u doğrudan <body>’ye ekler
-    geoIpLookup: cb => {              // IP’den ülke kodu alırken
-      fetch('https://ipapi.co/json')
-        .then(r=>r.json()).then(d=>cb(d.country_code))
-        .catch(()=>cb('tr'));
-    },
-  utilsScript:
-    "vendor/intl-tel-input/utils.min.js", // utils script’i ekle
-});
+    initialCountry: "auto",             // IP’ye göre otomatik seç
+    preferredCountries: ["tr","us"],    // en üstte Türkiye + ABD
+    separateDialCode: true,             // kodu ayrı bir kutuda göster
+    autoHideDialCode: false,            // hep kodu görünür tut
+    geoIpLookup: cb => fetch("https://ipapi.co/json")
+                      .then(r => r.json())
+                      .then(d => cb(d.country_code))
+                      .catch(() => cb("tr")),
+    utilsScript: "vendor/intl-tel-input/utils.min.js",  // doğru yol
+    dropdownContainer: document.body    // dropdown’ı <body>’ye ekle
+  });
  console.log("iti object:", iti);   // yüklenip yüklenmediğini kontrol edin
 // ==========================================================
   const form             = document.getElementById('reservationForm');
