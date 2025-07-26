@@ -14,7 +14,7 @@ const phoneInput = document.getElementById('phoneNumber');
         .catch(()=>cb('tr'));
     },
   utilsScript:
-    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
+    "vendor/intl-tel-input/utils.min.js", // utils script’i ekle
 });
  console.log("iti object:", iti);   // yüklenip yüklenmediğini kontrol edin
 // ==========================================================

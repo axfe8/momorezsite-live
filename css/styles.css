@@ -68,6 +68,7 @@ h1, h2, h3, h4, h5, h6 {
   border: none               !important;
   box-shadow: none           !important;
   padding-top: 0rem !important;
+  overflow: visible !important;
 }
 
 /* index.html’e eklediğimiz .reservation-logo için */
