@@ -1,65 +1,77 @@
 // js/app.js
 
 document.addEventListener('DOMContentLoaded', () => {
+  // ————————————————
+  // Ortak seçenekler fonksiyonu
+  // ————————————————
+  function commonOptions() {
+    return {
+      initialCountry: 'auto',
+      preferredCountries: ['tr', 'us'],
+      separateDialCode: true,
+      autoHideDialCode: false,
+      geoIpLookup: cb =>
+        fetch('https://ipapi.co/json')
+          .then(r => r.json())
+          .then(d => cb(d.country_code))
+          .catch(() => cb('tr')),
+      // Aynı versiyondan utils.js
+      utilsScript:
+        'https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js',
+      // Overflow sorunlarını önlemek için body’ye ekle
+      dropdownContainer: document.body
+    };
+  }
+
+  // ————————————————
+  // Ana Telefon
+  // ————————————————
   const phoneInput = document.getElementById('phoneNumber');
-  const iti = window.intlTelInput(phoneInput, {
-    initialCountry: "auto",
-    preferredCountries: ["tr", "us"],
-    separateDialCode: true,
-    autoHideDialCode: false,
-    allowDropdown: true,
-    geoIpLookup: cb =>
-      fetch("https://ipapi.co/json")
-        .then(r => r.json())
-        .then(d => cb(d.country_code))
-        .catch(() => cb("tr")),
-    // utils da aynı versiyondan
-    utilsScript:
-      "https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/utils.js",
-    // dropdown’ı <body> içine ekle
-    dropdownContainer: document.body
-  });
-  console.log("iti object:", iti);   // yüklenip yüklenmediğini kontrol edin
-// ==========================================================
-  const form             = document.getElementById('reservationForm');
-  const msgEl            = document.getElementById('message');
-  const submitBtn        = form.querySelector('button[type="submit"]');
+  const mainIti = window.intlTelInput(phoneInput, commonOptions());
+  console.log('main iti object:', mainIti);
+
+  // ————————————————
+  // Form elemanları
+  // ————————————————
+  const form = document.getElementById('reservationForm');
+  const msgEl = document.getElementById('message');
+  const submitBtn = form.querySelector('button[type="submit"]');
   const personCountInput = document.getElementById('personCount');
-  const guestContainer   = document.getElementById('guestContainer');
-  // --- SOSYAL MEDYA PREFIX GÜNCELLEME ---
-const platformSelect = document.getElementById('socialPlatform');
-const socialInput    = document.getElementById('socialMedia');
+  const guestContainer = document.getElementById('guestContainer');
 
-const prefixes = {
-  instagram: 'https://instagram.com/',
-  linkedin : 'https://linkedin.com/in/',
-  facebook : 'https://facebook.com/'
-};
+  // ————————————————
+  // Sosyal medya prefix güncelleme (değişmedi)
+  // ————————————————
+  const platformSelect = document.getElementById('socialPlatform');
+  const socialInput = document.getElementById('socialMedia');
+  const prefixes = {
+    instagram: 'https://instagram.com/',
+    linkedin: 'https://linkedin.com/in/',
+    facebook: 'https://facebook.com/'
+  };
+  function updateSocialPrefix() {
+    const url = socialInput.value || '';
+    const lastSlash = url.lastIndexOf('/');
+    const user = lastSlash >= 0 ? url.slice(lastSlash + 1) : '';
+    socialInput.value = prefixes[platformSelect.value] + user;
+    setTimeout(() => {
+      socialInput.selectionStart = socialInput.selectionEnd = socialInput.value.length;
+    });
+  }
+  platformSelect.addEventListener('change', updateSocialPrefix);
+  socialInput.addEventListener('focus', updateSocialPrefix);
+  updateSocialPrefix();
 
-function updateSocialPrefix() {
-  // Mevcut URL’den kullanıcı adını ayıkla
-  const url       = socialInput.value || '';
-  const lastSlash = url.lastIndexOf('/');
-  const username  = lastSlash >= 0 ? url.slice(lastSlash + 1) : '';
+  // ————————————————
+  // Misafir telefonlarını saklayacağımız dizi
+  // ————————————————
+  const guestItis = [];
 
-  // Yeni prefix + kullanıcı adı
-  socialInput.value = prefixes[ platformSelect.value ] + username;
-
-  // İmleci metnin sonuna taşı
-  setTimeout(() => {
-    socialInput.selectionStart = socialInput.selectionEnd = socialInput.value.length;
-  });
-}
-
-// Platform değişince ve input’a odaklanınca prefix’i güncelle
-platformSelect.addEventListener('change', updateSocialPrefix);
-socialInput.addEventListener('focus', updateSocialPrefix);
-
-// Sayfa yüklendiğinde ilk değer ataması
-updateSocialPrefix();
-
-  // Misafir alanlarını yeniden oluştur
+  // ————————————————
+  // Misafir alanlarını render eden fonksiyon
+  // ————————————————
   function renderGuests() {
+    guestItis.length = 0;       // önceki init’leri temizle
     guestContainer.innerHTML = '';
     const count = parseInt(personCountInput.value, 10);
     if (isNaN(count) || count < 2) return;
@@ -76,28 +88,43 @@ updateSocialPrefix();
       legend.textContent = `${i}. Misafir`;
       fs.appendChild(legend);
 
-      [['Ad Soyad','text','fullName'],
+      // Ad Soyad, E-posta, Telefon
+      [['Ad Soyad', 'text', 'fullName'],
        ['E-posta','email','email'],
        ['Telefon','tel','phoneNumber']
-    ]
-        .forEach(([labelText,type,name]) => {
-          const wrapper = document.createElement('div');
-          wrapper.className = 'mb-2';
+      ].forEach(([labelText, type, name]) => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'mb-2';
 
-          const lbl = document.createElement('label');
-          lbl.className = 'form-label small';
-          lbl.textContent = labelText;
+        const lbl = document.createElement('label');
+        lbl.className = 'form-label small';
+        lbl.textContent = labelText;
 
-          const inp = document.createElement('input');
-          inp.type = type;
-          inp.className = 'form-control form-control-sm rounded-pill';
-          inp.name = `guests[${i-1}].${name}`;
-          if (name !== 'socialMedia') inp.required = true;
+        const inp = document.createElement('input');
+        inp.type = type;
+        inp.className = 'form-control form-control-sm rounded-pill';
+        inp.name = `guests[${i-1}].${name}`;
+        if (name === 'phoneNumber') {
+          // misafir telefonu
+          inp.id = `guestPhone_${i}`;
+          inp.classList.add('guest-phone');
+          inp.required = true;
+        } else {
+          inp.placeholder = name === 'email' ? 'ornek@domain.com' : '';
+          inp.required = true;
+        }
 
-          wrapper.append(lbl, inp);
-          fs.appendChild(wrapper);
-        });
-        // 2) Sosyal Medya Platformu dropdown
+        wrapper.append(lbl, inp);
+        fs.appendChild(wrapper);
+
+        // misafir telefonuysa hemen init et
+        if (name === 'phoneNumber') {
+          const itiGuest = window.intlTelInput(inp, commonOptions());
+          guestItis.push(itiGuest);
+        }
+      });
+
+      // Sosyal Medya Platformu dropdown
       const platformWrapper = document.createElement('div');
       platformWrapper.className = 'mb-2';
       platformWrapper.innerHTML = `
@@ -107,11 +134,10 @@ updateSocialPrefix();
           <option value="instagram">Instagram</option>
           <option value="linkedin">LinkedIn</option>
           <option value="facebook">Facebook</option>
-        </select>
-      `;
+        </select>`;
       fs.appendChild(platformWrapper);
 
-      // 3) Sosyal Medya URL girişi
+      // Sosyal Medya URL
       const mediaWrapper = document.createElement('div');
       mediaWrapper.className = 'mb-2';
       mediaWrapper.innerHTML = `
@@ -119,29 +145,23 @@ updateSocialPrefix();
         <input type="url"
                class="form-control form-control-sm rounded-pill guest-socialMedia"
                name="guests[${i-1}].socialMedia"
-               placeholder="${prefixes.instagram}" />
-      `;
+               placeholder="${prefixes.instagram}" />`;
       fs.appendChild(mediaWrapper);
 
-      // 4) Prefix otomatik güncelleme
-      const sel = platformWrapper.querySelector('.guest-socialPlatform');
-      const inp = mediaWrapper.querySelector('.guest-socialMedia');
-      // Başlangıç placeholder
-      inp.placeholder = prefixes[ sel.value ];
-      // Değişim ve odaklanma dinleyicileri
-      sel.addEventListener('change', () => {
-        const url       = inp.value || '';
+      // prefix dinleyicileri
+      const selGuest = platformWrapper.querySelector('.guest-socialPlatform');
+      const inpGuest = mediaWrapper.querySelector('.guest-socialMedia');
+      inpGuest.placeholder = prefixes[selGuest.value];
+      selGuest.addEventListener('change', () => {
+        const url = inpGuest.value || '';
         const lastSlash = url.lastIndexOf('/');
-        const user      = lastSlash >= 0 ? url.slice(lastSlash + 1) : '';
-        inp.value       = prefixes[ sel.value ] + user;
-        // imleci sona taşı
+        const user = lastSlash >= 0 ? url.slice(lastSlash + 1) : '';
+        inpGuest.value = prefixes[selGuest.value] + user;
         setTimeout(() => {
-          inp.selectionStart = inp.selectionEnd = inp.value.length;
+          inpGuest.selectionStart = inpGuest.selectionEnd = inpGuest.value.length;
         });
       });
-      inp.addEventListener('focus', () => {
-        sel.dispatchEvent(new Event('change'));
-      });
+      inpGuest.addEventListener('focus', () => selGuest.dispatchEvent(new Event('change')));
 
       col.appendChild(fs);
       guestContainer.appendChild(col);
@@ -150,87 +170,82 @@ updateSocialPrefix();
 
   personCountInput.addEventListener('change', renderGuests);
 
+  // ————————————————
+  // Form submit – ana ve misafir telefonlarını validate & gönder
+  // ————————————————
   form.addEventListener('submit', async e => {
     e.preventDefault();
-     
-    // ➍ Butonu devre dışı bırak ve telefon doğrulaması yap
     submitBtn.disabled = true;
-    if (!iti.isValidNumber()) {
+
+    // Ana telefon doğrulama
+    if (!mainIti.isValidNumber()) {
       msgEl.innerHTML = '<div class="alert alert-warning">Geçerli bir telefon numarası girin.</div>';
       submitBtn.disabled = false;
       return;
     }
 
-    // ➎ Tam formatlı numarayı al
-    const fullPhone = iti.getNumber();  // örn "+905321234567"
-    // Butonu kilitle: tekrar tıklamayı engelle
-    submitBtn.disabled = true;
-    const fd          = new FormData(form);
-    const fullName    = fd.get('fullName')?.trim();
-    const phoneNumber = fd.get('phoneNumber')?.trim();
-    const email       = fd.get('email')?.trim();
-    const socialMedia = fd.get('socialMedia')?.trim() || null;
-    const requestedDate = fd.get('requestedDate');       // Talep Tarihi
-    const personCount = parseInt(fd.get('personCount'), 10);
-    // 2) Konsolda tüm değerleri gör
-console.group('📝 FormData Values');
-for (let pair of fd.entries()) {
-  console.log(pair[0], '→', pair[1]);
-}
-console.groupEnd();
+    // Misafir telefon doğrulama
+    for (let idx = 0; idx < guestItis.length; idx++) {
+      if (!guestItis[idx].isValidNumber()) {
+        msgEl.innerHTML = `<div class="alert alert-warning">${idx + 2}. misafir için geçerli bir telefon numarası girin.</div>`;
+        submitBtn.disabled = false;
+        return;
+      }
+    }
 
-    if (!fullName || !phoneNumber || !email || !requestedDate || !personCount) {
+    // Diğer form verileri
+    const fd = new FormData(form);
+    const fullName = fd.get('fullName')?.trim();
+    const email    = fd.get('email')?.trim();
+    const requestedDate = fd.get('requestedDate');
+    const personCount   = parseInt(fd.get('personCount'), 10);
+
+    if (!fullName || !email || !requestedDate || !personCount) {
       msgEl.innerHTML = '<div class="alert alert-warning">Lütfen tüm zorunlu alanları doldurun.</div>';
+      submitBtn.disabled = false;
       return;
     }
 
-    // Misafir dizisini oluştur
-    const guests = [{ fullName, email, phoneNumber, socialMedia }];
-    for (let i = 1; i < personCount; i++) {
-      const fn = fd.get(`guests[${i}].fullName`)?.trim();
-      const em = fd.get(`guests[${i}].email`)?.trim();
-      const ph = fd.get(`guests[${i}].phoneNumber`)?.trim();
-      const sm = fd.get(`guests[${i}].socialMedia`)?.trim() || null;
-      if (!fn || !em || !ph) {
-        msgEl.innerHTML = '<div class="alert alert-warning">Lütfen tüm misafir bilgilerini doldurun.</div>';
-        return;
-      }
-      guests.push({ fullName: fn, email: em, phoneNumber: ph, socialMedia: sm });
-    }
-
-    // Doğrudan DTO olarak gövdeye yazıyoruz
+    // DTO oluştur – ana telefon numarası
     const dto = {
       fullName,
-      phoneNumber: fullPhone,
+      phoneNumber: mainIti.getNumber(),
       email,
-      socialMedia,
+      socialMedia: fd.get('socialMedia')?.trim() || null,
       requestedDate,
       personCount,
-      guests
+      guests: []
     };
+
+    // Misafir verilerini ekle
+    for (let i = 0; i < guestItis.length; i++) {
+      const guestData = {
+        fullName: fd.get(`guests[${i}].fullName`)?.trim(),
+        email:    fd.get(`guests[${i}].email`)?.trim(),
+        phoneNumber: guestItis[i].getNumber(),
+        socialMedia: fd.get(`guests[${i}].socialMedia`)?.trim() || null
+      };
+      dto.guests.push(guestData);
+    }
 
     console.log('Gönderilen DTO:', dto);
 
+    // Netlify fonksiyonuna gönder
     try {
-      const apiUrl = '/.netlify/functions/submit';
-      const resp = await fetch(apiUrl, {
+      const resp = await fetch('/.netlify/functions/submit', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(dto)
       });
-      if (!resp.ok) {
-        const err = await resp.text();
-        throw new Error(err || resp.statusText);
-      }
+      if (!resp.ok) throw new Error(await resp.text() || resp.statusText);
       const result = await resp.json();
       msgEl.innerHTML = `<div class="alert alert-success">Rezervasyon talebiniz alındı! ID: ${result.requestId}</div>`;
       form.reset();
       guestContainer.innerHTML = '';
     } catch (err) {
       msgEl.innerHTML = `<div class="alert alert-danger">Hata: ${err.message}</div>`;
+    } finally {
+      submitBtn.disabled = false;
     }
-finally {
-    // İşlem tamamlandığında butonu tekrar aktif et
-    submitBtn.disabled = false;
-  }  });
+  });
 });
