@@ -140,3 +140,22 @@ h1, h2, h3, h4, h5, h6 {
 input[type="tel"] {
   padding-left: 5rem !important; /* bayrak + kod sığıyor mu kontrol edin */
 }
+
+/* Bayrak konteynerini tıklanabilir yap */
+.iti__flag-container {
+  pointer-events: auto !important;
+  cursor: pointer;
+  z-index: 1000 !important;
+}
+
+/* Dropdown listesini her zaman en üstte göster */
+.iti__country-list {
+  position: absolute !important;
+  z-index: 2000 !important;
+}
+
+/* Eğer placeholder’ınız varsa kaldırın,
+   plugin kendi örnek numarasını kullanacak */
+input[type="tel"] {
+  /* placeholder: "+90 5xx xxx xx xx"; */  /* çıkarın */
+}

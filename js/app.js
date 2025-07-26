@@ -1,21 +1,22 @@
 // js/app.js
 
 document.addEventListener('DOMContentLoaded', () => {
-  // ===== Telefon alanını intl-tel-input ile zenginleştir =====
 const phoneInput = document.getElementById('phoneNumber');
-const iti = window.intlTelInput(phoneInput, {
-  initialCountry: "auto",
-  separateDialCode: true,
-  dropdownContainer: document.body,
-  geoIpLookup: callback => {
-    fetch('https://ipapi.co/json')
-      .then(r => r.json())
-      .then(data => callback(data.country_code))
-      .catch(() => callback('tr'));
-  },
+  const iti = window.intlTelInput(phoneInput, {
+    initialCountry: "auto",           // otomatik seçim bırakıldı
+    preferredCountries: ["tr","us"],  // en üste Türkiye’yi koyun
+    separateDialCode: true,           // kodu input’tan ayırır
+    autoHideDialCode: false,          // hep kodu göster
+    dropdownContainer: document.body, // dropdown’u doğrudan <body>’ye ekler
+    geoIpLookup: cb => {              // IP’den ülke kodu alırken
+      fetch('https://ipapi.co/json')
+        .then(r=>r.json()).then(d=>cb(d.country_code))
+        .catch(()=>cb('tr'));
+    },
   utilsScript:
     "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"
 });
+ console.log("iti object:", iti);   // yüklenip yüklenmediğini kontrol edin
 // ==========================================================
   const form             = document.getElementById('reservationForm');
   const msgEl            = document.getElementById('message');
