@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       .then(r => r.json())
                       .then(d => cb(d.country_code))
                       .catch(() => cb("tr")),
-    utilsScript: "vendor/intl-tel-input/js/utils.js",  // doğru yol
+    utilsScript: "vendor/intl-tel-input/js/utils.min.js",  // doğru yol
     dropdownContainer: document.body    // dropdown’ı <body>’ye ekle
   });
  console.log("iti object:", iti);   // yüklenip yüklenmediğini kontrol edin
