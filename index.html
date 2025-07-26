@@ -149,8 +149,15 @@
 
 <!-- local JS -->
 <script src="vendor/intl-tel-input/js/intlTelInput.min.js"></script>
-<script src="vendor/intl-tel-input/js/utils.min.js"></script>
-
+<script>
+  const phoneInput = document.querySelector("#phone");
+  const iti = window.intlTelInput(phoneInput, {
+    // Dropdown’u body’ye ekle, overflow sorununu ortadan kaldırır
+    dropdownContainer: document.body,
+    // Eğer utils.js’e ihtiyaç duyuyorsanız:
+    utilsScript: "vendor/intl-tel-input/js/utils.min.js",
+  });
+</script>
   <!-- Uygulama JS -->
   <script src="js/app.js"></script>
 </body>
