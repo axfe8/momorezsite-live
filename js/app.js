@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // — form submit —
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    submitBtn.disabled = true;
+    msgEl.innerHTML = '';
 
     // ana telefon doğrulama
     if (!mainIti.isValidNumber()) {
@@ -197,11 +197,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // misafir verilerini ekle
-    for (let i = 0; i < guestItis.length; i++) {
+    for (let i = 0; i < personCount - 1; i++) {
       dto.guests.push({
         fullName:      fd.get(`guests[${i}].fullName`)?.trim(),
         email:         fd.get(`guests[${i}].email`)?.trim(),
-        phoneNumber:   guestItis[i].getNumber(),
+        phoneNumber:   guestItis[i]?.getNumber(),
         socialMedia:   fd.get(`guests[${i}].socialMedia`)?.trim() || null
       });
     }
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Gönderilen DTO:', dto);
 
     try {
-      const resp = await fetch('/.netlify/functions/submit', {
+      const resp = await fetch(`${window.location.origin}/.netlify/functions/submit`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(dto)
