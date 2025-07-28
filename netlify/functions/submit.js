@@ -38,41 +38,44 @@ exports.handler = async function(event) {
       guests          // [{ fullName, email, phoneNumber, socialMedia }, ...]
     } = JSON.parse(event.body);
 
-    // 3) DB'ye bağlan
-    const pool = await sql.connect(config);
+// 1) DB'ye bağlan
+const pool    = await sql.connect(config);
 
-    // 4) Table-Valued Parameter (TVP) için geçici tablo oluştur
-    const tvp = new sql.Table("dbo.RequestGuestType");
-    tvp.columns.add("FullName",    sql.NVarChar(100), { nullable: true });
-    tvp.columns.add("Email",       sql.NVarChar(100), { nullable: true });
-    tvp.columns.add("PhoneNumber", sql.NVarChar(20),  { nullable: true });
-    tvp.columns.add("SocialMedia", sql.NVarChar(200), { nullable: true });
-    //  misafir verilerini ekle
-    guests.forEach(g => {
-      tvp.rows.add(
-        g.fullName,
-        g.email,
-        g.phoneNumber,
-        g.socialMedia ?? null
-      );
-    });
+// 2) Stored Proc için request nesnesini oluştur
+const request = pool.request();
 
-    // 5) Stored Procedure’u hazırla
-    const request = pool.request();
-    request.input ( "FullName",       sql.NVarChar(100), fullName );
-    request.input ( "PhoneNumber",    sql.NVarChar(20),  phoneNumber );
-    request.input ( "Email",          sql.NVarChar(100), email );
-    request.input ( "SocialMedia",    sql.NVarChar(200), socialMedia );
-    request.input ( "PersonCount",    sql.Int,           personCount );
-    request.input ( "RequestedDate",  sql.Date,          requestedDate );
-    request.input ( "Guests",         tvp );           // TVP parametresi
-    request.output( "OutRequestID",   sql.Int );
+// 3) TVP’yi önce oluştur ve doldur
+const tvp = new sql.Table("dbo.RequestGuestType");
+tvp.columns.add("RowNum",      sql.Int);
+tvp.columns.add("FullName",    sql.NVarChar(100), { nullable: true });
+tvp.columns.add("Email",       sql.NVarChar(100), { nullable: true });
+tvp.columns.add("PhoneNumber", sql.NVarChar(20),  { nullable: true });
+tvp.columns.add("SocialMedia", sql.NVarChar(200), { nullable: true });
 
-    // 6) Çalıştır
-    const result = await request.execute("sp_CreateReservationRequestWithGuests");
-    const newId = result.output.OutRequestID;
+guests.forEach((g, idx) => {
+  tvp.rows.add(
+    idx + 1,  // RowNum
+    g.fullName,
+    g.email,
+    g.phoneNumber,
+    g.socialMedia ?? null
+  );
+});
 
-    // 7) İstemciye JSON olarak dön
+// 4) TVP’yi ve diğer tüm parametreleri ekle
+request
+  .input("Guests",        tvp)
+  .input("FullName",      sql.NVarChar(100), fullName)
+  .input("PhoneNumber",   sql.NVarChar(20),  phoneNumber)
+  .input("Email",         sql.NVarChar(100), email)
+  .input("SocialMedia",   sql.NVarChar(200), socialMedia)
+  .input("PersonCount",   sql.Int,           personCount)
+  .input("RequestedDate", sql.Date,          requestedDate)
+  .output("OutRequestID", sql.Int);
+
+// 5) Prosedürü çalıştır
+const result = await request.execute("sp_CreateReservationRequestWithGuests");
+const newId  = result.output.OutRequestID;    // 7) İstemciye JSON olarak dön
     return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
