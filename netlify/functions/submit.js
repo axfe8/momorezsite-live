@@ -36,7 +36,7 @@ exports.handler = async function(event) {
       requestedDate,  // "YYYY-MM-DD" formatında
       personCount,    // integer
       guests          // [{ fullName, email, phoneNumber, socialMedia }, ...]
-    } = JSON.parse(event.body).guests;
+    } = JSON.parse(event.body);
 
 // 1) DB'ye bağlan
 const pool    = await sql.connect(config);
