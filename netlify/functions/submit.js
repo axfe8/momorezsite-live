@@ -48,10 +48,18 @@ tvp.columns.add("FullName",    sql.NVarChar(100), { nullable: true });
 tvp.columns.add("Email",       sql.NVarChar(100), { nullable: true });
 tvp.columns.add("PhoneNumber", sql.NVarChar(20),  { nullable: true });
 tvp.columns.add("SocialMedia", sql.NVarChar(200), { nullable: true });
+// ★ önce sahip satırını ekle (RowNum = 1)
+tvp.rows.add(
+  1,
+  fullName,
+  email,
+  phoneNumber,
+  socialMedia
+);
 
 guests.forEach((g, idx) => {
   tvp.rows.add(
-    idx + 1,  // RowNum
+    idx + 2,  // RowNum
     g.fullName,
     g.email,
     g.phoneNumber,
