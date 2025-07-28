@@ -41,9 +41,6 @@ exports.handler = async function(event) {
 // 1) DB'ye bağlan
 const pool    = await sql.connect(config);
 
-// 2) Stored Proc için request nesnesini oluştur
-const request = pool.request();
-
 // 3) TVP’yi önce oluştur ve doldur
 const tvp = new sql.Table("dbo.RequestGuestType");
 tvp.columns.add("RowNum",      sql.Int);
@@ -62,7 +59,9 @@ guests.forEach((g, idx) => {
   );
 });
 
-console.log("TVP satır sayısı:", tvp.rows.length);
+// 2) Stored Proc için request nesnesini oluştur
+const request = pool.request();
+
 
 // 4) TVP’yi ve diğer tüm parametreleri ekle
 request
@@ -78,7 +77,8 @@ request
 // 5) Prosedürü çalıştır
 const result = await request.execute("sp_CreateReservationRequestWithGuests");
 const newId  = result.output.OutRequestID;    // 7) İstemciye JSON olarak dön
-    return {
+    
+  return {
       statusCode: 200,
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ requestId: newId, guests })
