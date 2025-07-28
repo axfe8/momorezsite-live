@@ -62,6 +62,8 @@ guests.forEach((g, idx) => {
   );
 });
 
+console.log("TVP satır sayısı:", tvp.rows.length);
+
 // 4) TVP’yi ve diğer tüm parametreleri ekle
 request
   .input("Guests",        tvp)
