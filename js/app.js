@@ -1,5 +1,5 @@
 // js/app.js
-
+let isSubmitting = false;
 document.addEventListener('DOMContentLoaded', () => {
   // — ortak intl‑tel‑input seçenekleri —
   function commonOptions() {
@@ -155,7 +155,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // — form submit —
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    msgEl.innerHTML = '';
+    if (isSubmitting) return;   // zaten gönderim varsa yoksay
+   isSubmitting = true;        // gönderimi kilitle
+   submitBtn.disabled = true;   // butonu kilitle 
+   msgEl.innerHTML = '';
 
     // ana telefon doğrulama
     if (!mainIti.isValidNumber()) {
@@ -222,7 +225,8 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch (err) {
       msgEl.innerHTML = `<div class="alert alert-danger">Hata: ${err.message}</div>`;
     } finally {
-      submitBtn.disabled = false;
+      submitBtn.disabled = false;  // butonu tekrar aç
+     isSubmitting = false;        // bayrağı sıfırla
     }
   });
 });
