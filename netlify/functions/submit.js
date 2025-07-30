@@ -73,6 +73,16 @@ guests.forEach((g, idx) => {
 // 2) Stored Proc için request nesnesini oluştur
 const request = pool.request();
 
+// Saat değerini güvenli şekilde MSSQL TIME için formatla
+const timeString = reservationTime.includes(":") && reservationTime.length === 5
+  ? reservationTime + ":00"
+  : reservationTime;
+
+const timeParts = timeString.split(":");
+const timeAsDate = new Date();
+timeAsDate.setHours(Number(timeParts[0]));
+timeAsDate.setMinutes(Number(timeParts[1]));
+timeAsDate.setSeconds(Number(timeParts[2]) || 0);
 
 // 4) TVP’yi ve diğer tüm parametreleri ekle
 request
@@ -84,8 +94,8 @@ request
   .input("PersonCount",   sql.Int,           personCount)
   .input("RequestedDate", sql.Date,          requestedDate)
   .input("ServiceType",    sql.NVarChar(50),  serviceType)
-  .input("RequestedTime", sql.Time, reservationTime ? `${reservationTime}:00` : null)
-  .input("ExtraNote",      sql.NVarChar(sql.MAX), extraNote || null)
+  .input("RequestedTime", sql.Time, timeAsDate) // ← güncellendi
+  .input("ExtraNote", sql.NVarChar(sql.MAX), extraNote || null)
   .output("OutRequestID", sql.Int);
   
 
