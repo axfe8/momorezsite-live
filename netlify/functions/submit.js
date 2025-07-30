@@ -84,8 +84,8 @@ request
   .input("PersonCount",   sql.Int,           personCount)
   .input("RequestedDate", sql.Date,          requestedDate)
   .input("ServiceType",    sql.NVarChar(50),  serviceType)
-  .input("RequestedTime",  sql.Time,          reservationTime)
-  .input("ExtraNote",      sql.NVarChar(sql.MAX), extraNote)
+  .input("RequestedTime",  sql.Time,          reservationTime || null)
+  .input("ExtraNote",      sql.NVarChar(sql.MAX), extraNote || null)
   .output("OutRequestID", sql.Int);
   
 

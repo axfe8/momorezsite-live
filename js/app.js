@@ -200,6 +200,9 @@ document.addEventListener('DOMContentLoaded', () => {
       socialMedia: fd.get('socialMedia')?.trim() || null,
       requestedDate,
       personCount,
+      serviceType,
+    reservationTime,
+    extraNote,
       guests: []
     };
 
