@@ -72,26 +72,22 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 30px;
 }
 
-/* Turuncu buton rengi */
+/* Zarif siyah buton */
 .btn-primary {
-  background-color: #e67300 !important;
-  border-color:     #e67300 !important;
-  color:            #ffffff !important; /* yazı rengini beyaz olsun */
+  background-color: #000 !important;
+  border-color:     #000 !important;
+  color:            #fff !important;
 }
-
-/* Hover durumunda biraz koyulaştırmak istersen */
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: #e67300 !important; /* biraz koyu turuncu */
-  border-color:     #e67300 !important;
-  color:            #ffffff !important;
+  background-color: #333 !important;
+  border-color:     #333 !important;
+  color:            #fff !important;
 }
-
-/* Tıklanınca/active durumunda */
 .btn-primary:active,
 .btn-primary.active {
-  background-color: #cc6600 !important;
-  border-color:     #cc6600 !important;
+  background-color: #111 !important;
+  border-color:     #111 !important;
 }
 /* styles.css’in en altına ekle */
 .form-check-input:checked {
