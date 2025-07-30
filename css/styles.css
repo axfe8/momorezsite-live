@@ -1,9 +1,8 @@
 
 /* 1) Tüm sayfa arka planı */
 body {
-body {
   font-family: 'Playfair Display', serif;
-}
+
   background-color: #ffffff;
   color: #000000;
   min-height: 100vh;
