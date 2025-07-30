@@ -1,17 +1,9 @@
-@font-face {
-  font-family: 'ESBuildTRIAL';
-  src: url('fonts/ESBuildTRIAL-Bold.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 
 /* 1) Tüm sayfa arka planı */
 body {
-  font-family: ESBuildTRIAL, sans-serif; 
-  font-style:bold;
-  font-weight: 100;
-  background-color: rgb(250, 242, 210);  /* #fcf4de tonunda */
+  font-family: 'Playfair Display', serif;
+  background-color: #ffffff;
+  color: #000000;
   min-height: 100vh;
   margin: 0;
 }
