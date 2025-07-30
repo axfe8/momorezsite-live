@@ -135,6 +135,28 @@
       okudum, onaylıyorum.
     </label>
   </div>
+
+  <!-- Hizmet Tipi -->
+  <div class="mb-3">
+    <label for="serviceType" class="form-label">Hizmet Türü</label>
+    <select id="serviceType" name="serviceType" class="form-select" required>
+      <option value="Beach">Beach</option>
+      <option value="Plaj">Plaj</option>
+      <option value="Restoran">Restoran</option>
+    </select>
+  </div>
+
+  <!-- Saat Seçimi -->
+  <div class="mb-3">
+    <label for="reservationTime" class="form-label">Saat</label>
+    <input type="time" id="reservationTime" name="reservationTime" class="form-control">
+  </div>
+
+  <!-- Ekstra Not -->
+  <div class="mb-3">
+    <label for="extraNote" class="form-label">Not</label>
+    <textarea id="extraNote" name="extraNote" rows="3" class="form-control" placeholder="Çocuk, evcil hayvan, doğum günü gibi notlar..."></textarea>
+  </div>
           <!-- Gönder -->
           <div class="col-12 text-center mt-3">
             <button type="submit" class="btn btn-primary rounded-pill px-5">

@@ -35,6 +35,9 @@ exports.handler = async function(event) {
       socialMedia,
       requestedDate,  // "YYYY-MM-DD" formatında
       personCount,    // integer
+      serviceType,
+      reservationTime,
+      extraNote,
       guests          // [{ fullName, email, phoneNumber, socialMedia }, ...]
     } = JSON.parse(event.body);
 
@@ -80,7 +83,11 @@ request
   .input("SocialMedia",   sql.NVarChar(200), socialMedia)
   .input("PersonCount",   sql.Int,           personCount)
   .input("RequestedDate", sql.Date,          requestedDate)
+  .input("ServiceType",    sql.NVarChar(50),  serviceType)
+  .input("RequestedTime",  sql.Time,          reservationTime)
+  .input("ExtraNote",      sql.NVarChar(sql.MAX), extraNote)
   .output("OutRequestID", sql.Int);
+  
 
 // 5) Prosedürü çalıştır
 const result = await request.execute("sp_CreateReservationRequestWithGuests");

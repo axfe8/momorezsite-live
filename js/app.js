@@ -181,6 +181,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const email        = fd.get('email')?.trim();
     const requestedDate= fd.get('requestedDate');
     const personCount  = parseInt(fd.get('personCount'), 10);
+    // 🔽 Yeni alanlar buraya eklendi
+  const serviceType = document.getElementById("serviceType").value;
+  const reservationTime = document.getElementById("reservationTime").value;
+  const extraNote = document.getElementById("extraNote").value;
 
     if (!fullName || !email || !requestedDate || !personCount) {
       msgEl.innerHTML = '<div class="alert alert-warning">Lütfen tüm zorunlu alanları doldurun.</div>';
