@@ -183,7 +183,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const personCount  = parseInt(fd.get('personCount'), 10);
     // 🔽 Yeni alanlar buraya eklendi
   const serviceType = document.getElementById("serviceType").value;
-  const reservationTime = document.getElementById("reservationTime").value;
+const rawTime = document.getElementById("reservationTime").value;
+const reservationTime = rawTime ? `${rawTime}:00` : null;
   const extraNote = document.getElementById("extraNote").value;
 
     if (!fullName || !email || !requestedDate || !personCount) {
