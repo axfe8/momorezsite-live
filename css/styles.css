@@ -130,3 +130,13 @@ h1, h2, h3, h4, h5, h6 {
 .iti--allow-dropdown {
   width: 100% !important;
 }
+
+#socialMedia {
+  margin-top: 0.25rem;
+}
+
+label[for="socialMedia"] {
+  font-size: 0.85rem; /* İstersen 0.75rem yaparak daha da küçültebilirsin */
+  display: block;
+  line-height: 1.3;
+}
