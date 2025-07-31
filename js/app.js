@@ -238,3 +238,21 @@ const reservationTime = rawTime ? `${rawTime}:00` : null;
     }
   });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const serviceTypeSelect = document.getElementById('serviceType');
+  const timeContainer = document.getElementById('timeContainer');
+
+  serviceTypeSelect.addEventListener('change', function () {
+    if (serviceTypeSelect.value === 'Beach Party') {
+      timeContainer.style.display = 'none';
+    } else {
+      timeContainer.style.display = 'block';
+    }
+  });
+
+  // Sayfa yüklendiğinde varsayılan kontrol (örneğin formu geri yüklediğinde)
+  if (serviceTypeSelect.value === 'Beach Party') {
+    timeContainer.style.display = 'none';
+  }
+});
