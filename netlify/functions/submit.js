@@ -74,15 +74,20 @@ guests.forEach((g, idx) => {
 const request = pool.request();
 
 // Saat değerini güvenli şekilde MSSQL TIME için formatla
-const timeString = reservationTime.includes(":") && reservationTime.length === 5
-  ? reservationTime + ":00"
-  : reservationTime;
+// Saat değerini güvenli şekilde MSSQL TIME için formatla
+let timeAsDate = null;
 
-const timeParts = timeString.split(":");
-const timeAsDate = new Date();
-timeAsDate.setHours(Number(timeParts[0]));
-timeAsDate.setMinutes(Number(timeParts[1]));
-timeAsDate.setSeconds(Number(timeParts[2]) || 0);
+if (reservationTime) {
+  const timeString = reservationTime.length === 5
+    ? reservationTime + ":00"
+    : reservationTime;
+
+  const timeParts = timeString.split(":");
+  timeAsDate = new Date();
+  timeAsDate.setHours(Number(timeParts[0]));
+  timeAsDate.setMinutes(Number(timeParts[1]));
+  timeAsDate.setSeconds(Number(timeParts[2]) || 0);
+}
 
 // 4) TVP’yi ve diğer tüm parametreleri ekle
 request
