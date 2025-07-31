@@ -98,7 +98,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Logo altındaki boşluğu sıkılaştır */
 .text-center.mb-4 {
-  margin-bottom: 0rem !important; /* Varsayılan 1.5rem iken 0.5rem yaptık */
+  margin-bottom: -40px !important; /* Varsayılan 1.5rem iken 0.5rem yaptık */
 }
 
 .iti__country-list, .iti__country-list li {
