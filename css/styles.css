@@ -62,7 +62,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: none           !important;
   padding-top: 0rem !important;
   overflow: visible !important;
-  margin-top: 0px;
+  margin-top: -15px;
 }
 
 /* index.html’e eklediğimiz .reservation-logo için */
@@ -70,7 +70,7 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 150px;    /* genişlik ihtiyaca göre ayarla */
   height: auto;
   display: inline-block;
-  margin-top: -10px;
+  margin-top: 10px;
 }
 
 /* Zarif siyah buton */
