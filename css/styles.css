@@ -92,8 +92,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 /* styles.css’in en altına ekle */
 .form-check-input:checked {
-  background-color: #ff6600 !important;
-  border-color:     #ff6600 !important;
+  background-color: #000000 !important;
+  border-color:     #000000 !important;
 }
 
 /* Logo altındaki boşluğu sıkılaştır */
