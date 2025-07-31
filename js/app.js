@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 🔽 Yeni alanlar buraya eklendi
   const serviceType = document.getElementById("serviceType").value;
 const rawTime = document.getElementById("reservationTime").value;
-const reservationTime = rawTime ? `${rawTime}:00` : null;
+const reservationTime = rawTime ? `${rawTime}:00` : "";
   const extraNote = document.getElementById("extraNote").value;
 
     if (!fullName || !email || !requestedDate || !personCount) {
@@ -192,6 +192,13 @@ const reservationTime = rawTime ? `${rawTime}:00` : null;
       submitBtn.disabled = false;
       return;
     }
+
+    if (serviceType !== 'Beach Party' && !rawTime) {
+  msgEl.innerHTML = '<div class="alert alert-warning">Lütfen saat bilgisini girin.</div>';
+  submitBtn.disabled = false;
+  return;
+}
+
 
     // DTO oluştur
     const dto = {
@@ -202,8 +209,7 @@ const reservationTime = rawTime ? `${rawTime}:00` : null;
       requestedDate,
       personCount,
       serviceType,
-    reservationTime,
-    extraNote,
+reservationTime: serviceType === 'Beach Party' ? null : `${rawTime}:00`,    extraNote,
       guests: []
     };
 
