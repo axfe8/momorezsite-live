@@ -70,7 +70,7 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 150px;    /* genişlik ihtiyaca göre ayarla */
   height: auto;
   display: inline-block;
-  margin-top: 0px;
+  margin-top: -10px;
 }
 
 /* Zarif siyah buton */
