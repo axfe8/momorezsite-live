@@ -106,3 +106,7 @@ h1, h2, h3, h4, h5, h6 {
   visibility: visible !important;
   opacity: 1 !important;
 }
+
+.custom-reservation-container {
+  padding-top: 20px; /* Daha yukarı çıkarmak istersen 10px ya da 0 yapabilirsin */
+}
