@@ -110,3 +110,23 @@ h1, h2, h3, h4, h5, h6 {
 .custom-reservation-container {
   padding-top: 20px; /* Daha yukarı çıkarmak istersen 10px ya da 0 yapabilirsin */
 }
+
+/* Telefon alanı hizalama ve stil düzeltmesi */
+#phoneNumber {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+  padding: 0.375rem 0;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  color: #131313;
+  width: 100%;
+}
+
+.iti {
+  width: 100% !important;
+}
+
+.iti--allow-dropdown {
+  width: 100% !important;
+}

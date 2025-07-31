@@ -4,179 +4,100 @@
   <meta charset="UTF-8" />
   <title>Rezervasyon Talep Formu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-  
-  <!-- intl-tel-input CSS (CDN ile version 17.0.19) -->
-  <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/css/intlTelInput.min.css"
-  />
-
-  <!-- Google Font -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/css/intlTelInput.min.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap" />
-
-  <!-- Özel Stil -->
   <link rel="stylesheet" href="css/styles.css" />
-  
 </head>
 <body>
 <div class="container custom-reservation-container">
-<h1 class="text-center mb-4">Rezervasyon Talep Formu</h1>    <div class="card shadow-sm mx-auto" style="max-width: 600px;">
-  <!-- ↓ işte buraya ekliyoruz ↓ -->
-<div class="text-center mb-4">
-  <img src="images/MOMO LOGO-11 (1).png" 
-       alt="Momo Dalyan Logo" 
-       class="reservation-logo" />
-</div>
-      <div class="card-body p-4">
-        <!-- Mesaj alanı -->
-        <div id="message" class="mb-3"></div>
-        <form id="reservationForm" class="row g-3">
-          <!-- Ad Soyad -->
-          <div class="col-12">
-            <label for="fullName" class="form-label">Ad Soyad</label>
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              class="form-control rounded-pill"
-              placeholder="Adınız ve soyadınız"
-              required
-            />
-          </div>
-          <!-- E-posta -->
-          <div class="col-md-6">
-            <label for="email" class="form-label">E-posta</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              class="form-control rounded-pill"
-              placeholder="ornek@domain.com"
-              required
-            />
-          </div>
-          <!-- Telefon -->
-          <div class="col-md-6">
-            <label for="phoneNumber" class="form-label">Telefon</label>
-            <input
-              type="tel"
-              id="phoneNumber"
-              name="phoneNumber"
-              class="form-control rounded-pill"
-              required
-            />
-          </div>
-          <!-- Rezervasyon Tarihi -->
-          <div class="col-md-6">
-                <label for="requestedDate" class="form-label">Rezervasyon Tarihi</label>
-                <input
-                type="date"
-                id="requestedDate"
-                name="requestedDate"
-                    class="form-control rounded-pill"
-                      required
-                        />
-</div>
-          <!-- Kişi Sayısı -->
-          <div class="col-12">
-            <label for="personCount" class="form-label">Kişi Sayısı</label>
-            <select
-              id="personCount"
-              name="personCount"
-              class="form-select rounded-pill"
-              required
-            >
-              <option value="" selected>Seçiniz</option>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          </div>
-          <!-- Sosyal Medya -->
-          <div class="col-12">
-            <label for="socialMedia" class="form-label">Sizlerin deneyimini özelleştirebilmek ve daha iyi bir hizmet sağlayabilmek adına bizlerle kendinizi ifade ettiğiniz bir mecra paylaşmanızı rica ediyoruz
-            </label>
-            <select id="socialPlatform" name="socialPlatform" class="form-select mb-2 rounded-pill">
+  <h1 class="text-center mb-4">Rezervasyon Talep Formu</h1>
+  <div class="card shadow-sm mx-auto" style="max-width: 600px;">
+    <div class="text-center mb-4">
+      <img src="images/MOMO LOGO-11 (1).png" alt="Momo Dalyan Logo" class="reservation-logo" />
+    </div>
+    <div class="card-body p-4">
+      <div id="message" class="mb-3"></div>
+      <form id="reservationForm" class="row g-3">
+        <!-- Ad Soyad -->
+        <div class="col-12">
+          <label for="fullName" class="form-label">Ad Soyad</label>
+          <input type="text" id="fullName" name="fullName" class="form-control rounded-pill" placeholder="Adınız ve soyadınız" required />
+        </div>
+        <!-- E-posta -->
+        <div class="col-12">
+          <label for="email" class="form-label">E-posta</label>
+          <input type="email" id="email" name="email" class="form-control rounded-pill" placeholder="ornek@domain.com" required />
+        </div>
+        <!-- Telefon -->
+        <div class="col-12">
+          <label for="phoneNumber" class="form-label">Telefon</label>
+          <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control rounded-pill" required />
+        </div>
+        <!-- Bölüm -->
+        <div class="col-12">
+          <label for="serviceType" class="form-label">Bölüm Seçiniz</label>
+          <select id="serviceType" name="serviceType" class="form-select rounded-pill" required>
+            <option value="Plaj">Plaj</option>
+            <option value="Restoran">Restoran</option>
+          </select>
+        </div>
+        <!-- Rezervasyon Tarihi -->
+        <div class="col-12">
+          <label for="requestedDate" class="form-label">Rezervasyon Tarihi</label>
+          <input type="date" id="requestedDate" name="requestedDate" class="form-control rounded-pill" required />
+        </div>
+        <!-- Saat Seçimi -->
+        <div class="col-12">
+          <label for="reservationTime" class="form-label">Saat</label>
+          <input type="time" id="reservationTime" name="reservationTime" class="form-control rounded-pill" required />
+        </div>
+        <!-- Sosyal Medya -->
+        <div class="col-12">
+          <label for="socialMedia" class="form-label">Sosyal Medya</label>
+          <select id="socialPlatform" name="socialPlatform" class="form-select mb-2 rounded-pill">
             <option value="instagram">Instagram</option>
             <option value="linkedin">LinkedIn</option>
             <option value="facebook">Facebook</option>
           </select>
-            <input
-              type="text"
-            id="socialMedia"
-            name="socialMedia"
-            class="form-control mb-2 rounded-pill"
-            placeholder="Kullanıcı adınızı sonuna ekleyin"
-            />
-          </div>
-          <!-- Dinamik Misafir Alanları -->
-          <div id="guestContainer" class="col-12 row gy-3"></div>
-            <!-- ↓ KVKK onayı bölümü ↓ -->
-
-  <!-- Hizmet Tipi -->
-  <div class="mb-3">
-    <label for="serviceType" class="form-label">Bölüm seçiniz</label>
-    <select id="serviceType" name="serviceType" class="form-select" required>
-      <option value="Plaj">Plaj</option>
-      <option value="Restoran">Restoran</option>
-    </select>
-  </div>
-
-  <!-- Saat Seçimi -->
-  <div class="mb-3">
-    <label for="reservationTime" class="form-label">Saat</label>
-    <input type="time" id="reservationTime" name="reservationTime" class="form-control">
-  </div>
-
-  <!-- Ekstra Not -->
-  <div class="mb-3">
-    <label for="extraNote" class="form-label">Not</label>
-    <textarea id="extraNote" name="extraNote" rows="3" class="form-control" placeholder="18 yaş altı misafir, evcil hayvan, doğum günü kutlaması, grup rezervasyonu gibi özel durumlarınız veya talepleriniz varsa, lütfen bu bilgileri notlar kısmında paylaşınız."></textarea>
-  </div>
-
-    <div class="col-12 form-check mt-3">
-    <input
-      class="form-check-input"
-      type="checkbox"
-      id="kvkkCheck"
-      name="kvkkCheck"
-      required
-    />
-    <label class="form-check-label" for="kvkkCheck">
-      <a href="https://www.momosapiens.com.tr/yardim/privacy"
-         target="_blank"
-         rel="noopener"
-      >KVKK aydınlatma metnini</a>
-      okudum, onaylıyorum.
-    </label>
-  </div>
-
-          <!-- Gönder -->
-          <div class="col-12 text-center mt-3">
-            <button type="submit" class="btn btn-primary rounded-pill px-5">
-              Rezervasyon Talebi Gönder
-            </button>
-          </div>
-        </form>
-      </div>
+          <input type="text" id="socialMedia" name="socialMedia" class="form-control mb-2 rounded-pill" placeholder="Kullanıcı adınızı sonuna ekleyin" />
+        </div>
+        <!-- Kişi Sayısı -->
+        <div class="col-12">
+          <label for="personCount" class="form-label">Kişi Sayısı</label>
+          <select id="personCount" name="personCount" class="form-select rounded-pill" required>
+            <option value="" selected>Seçiniz</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+        <!-- Misafir Bilgi Alanları -->
+        <div id="guestContainer" class="col-12 row gy-3"></div>
+        <!-- Not -->
+        <div class="col-12">
+          <label for="extraNote" class="form-label">Not</label>
+          <textarea id="extraNote" name="extraNote" rows="3" class="form-control" placeholder="18 yaş altı misafir, evcil hayvan, doğum günü kutlaması, grup rezervasyonu gibi özel durumlarınız varsa belirtiniz."></textarea>
+        </div>
+        <!-- KVKK Onayı -->
+        <div class="col-12 form-check mt-3">
+          <input class="form-check-input" type="checkbox" id="kvkkCheck" name="kvkkCheck" required />
+          <label class="form-check-label" for="kvkkCheck">
+            <a href="https://www.momosapiens.com.tr/yardim/privacy" target="_blank" rel="noopener">KVKK aydınlatma metnini</a> okudum, onaylıyorum.
+          </label>
+        </div>
+        <!-- Gönder Butonu -->
+        <div class="col-12 text-center mt-3">
+          <button type="submit" class="btn btn-primary rounded-pill px-5">Rezervasyon Talebi Gönder</button>
+        </div>
+      </form>
     </div>
   </div>
-
-  <!-- Bootstrap JS Bundle -->
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-  ></script>
-  
-                         <!-- intl-tel-input JS (aynı version) -->
-  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/intlTelInput.min.js"></script>
-  <!-- Uygulama JS -->
-  <script src="js/app.js"></script>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.19/build/js/intlTelInput.min.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
